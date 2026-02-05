@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="scene">
+    <!-- 오른쪽 위 자기소개 한 줄 슬라이드 -->
+    <section id="intro-box" aria-live="polite">
+      <p id="intro-line"></p>
+    </section>
+
+    <!-- 메인 ASCII 애니메이션 -->
+    <pre id="ascii-stage" aria-label="ASCII animation"></pre>
+
+    <!-- 마지막에 나타날 지구 ASCII 버튼 -->
+    <button id="earth-btn" class="hidden" aria-label="Open language menu">
+      <pre id="earth-ascii"></pre>
+    </button>
+
+    <!-- 언어 선택 패널 (클릭 시 표시) -->
+    <nav id="language-panel" class="hidden" aria-label="Language selection">
+        <a href="#" data-lang="en">English</a>
+        <a href="#" data-lang="ko">한국어</a>
+        <a href="#" data-lang="zh">中文</a>
+        <a href="#" data-lang="es">Español</a>
+        <a href="#" data-lang="ar">العربية</a>
+    </nav>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
+

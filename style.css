@@ -1,0 +1,181 @@
+/* 전체 기본 스타일 */
+:root {
+  --bg: #000;
+  --fg: #fff;
+  --border: #fff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Courier New", Courier, monospace;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* 오른쪽 위 자기소개 */
+#intro-box {
+  position: absolute;
+  top: 100px;
+  right: 140px;
+  left: auto; /* 작은 화면에서 안전 여백 */
+  width: auto;
+  max-width: min(520px, calc(100vw - 48px));
+  min-height: 2.2em;
+  text-align: right;
+  z-index: 20;
+}
+
+
+
+#intro-line {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.4;
+  white-space: normal;      /* 핵심: 줄바꿈 허용 */
+  overflow-wrap: anywhere;  /* 긴 단어/링크도 줄바꿈 */
+  word-break: keep-all;
+}
+
+#intro-line a {
+  color: #fff;
+  text-decoration: underline;
+  overflow-wrap: anywhere;
+}
+
+/* ASCII 메인 화면 */
+#ascii-stage {
+  white-space: pre;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  line-height: 1;
+  display: inline-block;
+  overflow: hidden;
+  transform: scale(0.9) translateX(-550px);
+}
+
+/* 지구 버튼 (마지막에만 등장) */
+#earth-btn {
+  position: absolute;
+  /* 필요하면 네 ASCII 손 위치에 맞게 조정 */
+  top: 59%;
+  left: 60%;
+  transform: translate(-50%, -50%);
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  color: #6a80ff;
+  cursor: pointer;
+  z-index: 25;
+  transform: scale(0.4);
+}
+
+#earth-btn pre {
+  margin: 0;
+  white-space: pre;
+  line-height: 1;
+  font-size: 12px;
+  pointer-events: none; /* 클릭 영역은 버튼 자체 */
+}
+
+/* 패널 전체 */
+#language-panel {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(120px, 1fr)); /* 언어 5개 */
+  gap: 14px;
+  padding: 12px;
+  align-items: center;
+  justify-items: center;
+}
+
+/* 언어 버튼(혹은 a 태그) 공통 */
+#language-panel a[data-lang],
+#language-panel button[data-lang] {
+  width: 100%;
+  min-height: 58px;
+  padding: 10px 14px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  line-height: 1.1;
+  white-space: nowrap;        /* 한 줄 유지 */
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  background: #000;           /* 버튼 안 배경 검정 */
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 0;           /* 원하면 8px로 바꿔도 됨 */
+  box-sizing: border-box;
+
+  font-family: inherit;
+  font-size: 44px;
+  text-decoration: none;
+}
+
+/* hover/focus */
+#language-panel a[data-lang]:hover,
+#language-panel button[data-lang]:hover,
+#language-panel a[data-lang]:focus-visible,
+#language-panel button[data-lang]:focus-visible {
+  background: #000;
+  color: #fff;
+  outline: none;
+  border-color: #fff;
+}
+
+/* 모바일 대응 */
+@media (max-width: 900px) {
+  #language-panel {
+    grid-template-columns: repeat(2, minmax(120px, 1fr));
+  }
+
+  #language-panel a[data-lang],
+  #language-panel button[data-lang] {
+    font-size: 30px;
+    min-height: 52px;
+  }
+}
+
+/* 숨김 유틸 */
+.hidden {
+  display: none !important;
+}
+
+/* 작은 화면 대응 */
+@media (max-width: 900px) {
+  #intro-line {
+    font-size: 15px;
+  }
+
+  #ascii-stage,
+  #earth-btn pre {
+    font-size: 9px;
+  }
+
+  #language-panel {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 90%;
+  }
+
+  #language-panel a {
+    font-size: 26px;
+  }
+}
