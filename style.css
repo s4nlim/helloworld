@@ -91,15 +91,40 @@ body {
   pointer-events: none; /* 클릭 영역은 버튼 자체 */
 }
 
-/* 패널 전체 */
+/* 패널을 화면 위에 팝업처럼 띄우기 */
 #language-panel {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+
   display: grid;
-  grid-template-columns: repeat(5, minmax(120px, 1fr)); /* 언어 5개 */
+  grid-template-columns: repeat(5, minmax(120px, 1fr));
   gap: 14px;
   padding: 12px;
-  align-items: center;
-  justify-items: center;
+
+  width: min(900px, 92vw);
+  max-height: 80vh;
+  overflow: auto;
+  background: #000;
+  border: 1px solid #fff;
 }
+
+/* 숨김 클래스는 이것만 사용 */
+.hidden {
+  display: none !important;
+}
+
+/* 지구 버튼이 항상 위에서 클릭되게 */
+#earth-btn {
+  z-index: 50;
+  pointer-events: auto;
+}
+#earth-btn pre {
+  pointer-events: none;
+}
+
 
 /* 언어 버튼(혹은 a 태그) 공통 */
 #language-panel a[data-lang],
@@ -125,7 +150,7 @@ body {
   box-sizing: border-box;
 
   font-family: inherit;
-  font-size: 44px;
+  font-size: 30px;
   text-decoration: none;
 }
 

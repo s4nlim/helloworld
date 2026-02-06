@@ -782,7 +782,7 @@ const INTRO_BY_LANG = {
     `Mi contacto es <a href="https://instagram.com/inthe.san" target="_blank" rel="noopener noreferrer">@inthe.san</a>`
   ],
   ar: [
-    "مرحبًا أيها العالم",
+    "!مرحبًا أيها العالم",
     "اسمي سان.",
     "أنا من كوريا وأعيش حاليا في نيويورك.",
     "أدرس تصميم الاتصال في بارسونز.",
@@ -921,34 +921,46 @@ function restartAnimationWithLanguage(lang) {
   startAnimation();
 }
 
-function toggleLanguagePanel() {
-  languagePanel.classList.toggle("hidden");
+function showLanguagePanel() {
+  languagePanel.classList.remove("hidden");
+  languagePanel.classList.add("open");
 }
 
-/* ===============================
-   5) 이벤트
-   =============================== */
+function hideLanguagePanel() {
+  languagePanel.classList.remove("open");
+  languagePanel.classList.add("hidden");
+}
 
 earthBtn.addEventListener("click", (e) => {
+  e.preventDefault();
   e.stopPropagation();
-  toggleLanguagePanel();
+
+  const isOpen = languagePanel.classList.contains("open");
+  if (isOpen) hideLanguagePanel();
+  else showLanguagePanel();
 });
 
-document.querySelectorAll("#language-panel a[data-lang]").forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    restartAnimationWithLanguage(link.dataset.lang);
-  });
+languagePanel.addEventListener("click", (e) => {
+  const langBtn = e.target.closest("[data-lang]");
+  if (!langBtn) return;
+
+  e.preventDefault();
+  e.stopPropagation();
+
+  const lang = (langBtn.dataset.lang || "").trim().toLowerCase();
+  if (!INTRO_BY_LANG[lang]) return;
+
+  hideLanguagePanel();
+  restartAnimationWithLanguage(lang);
 });
+
 
 document.addEventListener("click", (e) => {
-  const clickedInsidePanel = languagePanel.contains(e.target);
-  const clickedEarth = earthBtn.contains(e.target);
-
-  if (!languagePanel.classList.contains("hidden") && !clickedInsidePanel && !clickedEarth) {
-    languagePanel.classList.add("hidden");
-  }
+  const insidePanel = e.target.closest("#language-panel");
+  const insideEarth = e.target.closest("#earth-btn");
+  if (!insidePanel && !insideEarth) hideLanguagePanel();
 });
+
 
 /* ===============================
    6) 시작
